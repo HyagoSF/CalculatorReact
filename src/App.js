@@ -30,6 +30,10 @@ export default function App() {
 				if (payload.digit === '0' && state.currentOperand === '0')
 					return state;
 
+				//not to crash when press "." without current Operands
+				if (payload.digit === '.' && state.currentOperand == null)
+					return state;
+
 				//not to add more than a "." in the same state
 				if (payload.digit === '.' && state.currentOperand.includes('.'))
 					return state;
@@ -77,7 +81,12 @@ export default function App() {
 				};
 
 			case ACTIONS.CLEAR:
-				return {};
+				return {
+					...state,
+					currentOperand: '0',
+					previousOperand: null,
+					operation: null,
+				};
 
 			case ACTIONS.DELETE_DIGIT:
 				//if is the answer of some calculation, when type delete will delete all
@@ -85,7 +94,7 @@ export default function App() {
 					return {
 						...state,
 						overwrite: null,
-						currentOperand: null,
+						currentOperand: '0',
 					};
 				}
 
@@ -169,7 +178,7 @@ export default function App() {
 	}
 
 	const [{ currentOperand, previousOperand, operation }, dispatch] =
-		useReducer(reducer, {});
+		useReducer(reducer, { currentOperand: '0' });
 
 	return (
 		<div className="calculator-grid">
