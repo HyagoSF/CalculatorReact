@@ -1,0 +1,74 @@
+/* Select everything */
+*,
+*::before,
+*::after {
+	/* to make all borders inside the big box */
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	/* to make the gradient */
+	background: linear-gradient(to right, #00aaff, #00ff6c);
+}
+
+.calculator-grid {
+	display: grid;
+	margin-top: 2rem;
+	justify-content: center;
+
+	/* fr = fraction, if I have 3 separated fr, then is 1/3 each fraction*/
+	grid-template-columns: repeat(4, 6rem);
+
+	/* minmax = the very first row at the top to be 7rem , or it will expand to fill the full height */
+	grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
+}
+
+/* get EACH button inside this .calculator-grid */
+.calculator-grid > button {
+	cursor: pointer;
+	font-size: 2rem;
+	border: 1px solid white;
+
+	/* around the border */
+	outline: none;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* focus is to keep the color when I click it */
+.calculator-grid > button:hover,
+.calculator-grid > button:focus {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.span-two {
+	/* to span 2 columns instead of just one */
+	grid-column: span 2;
+}
+
+/* to make sure it spans the correct amount  */
+.output {
+	/* to span from column 1 to column -1 (the entire first row) */
+	grid-column: 1 / -1;
+
+	background-color: rgba(0, 0, 0, 0.75);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
+	padding: 0.75rem;
+
+	/* to wrap the numbers and char's */
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+.output .previous-operand {
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 1.5rem;
+}
+
+.output .current-operand {
+	color: rgba(255, 255, 255);
+	font-size: 2.5rem;
+}
